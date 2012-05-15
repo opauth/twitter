@@ -4,7 +4,7 @@ Twitter strategy for [Opauth][1], based on Opauth OAuth.
 
 Getting started
 ----------------
-Install Opauth Twitter
+Install Opauth Twitter:
 
 ```bash
 cd path_to_opauth/Strategy
