@@ -1,10 +1,10 @@
-Opauth Twitter
+Opauth-Twitter
 =============
-Twitter strategy for [Opauth][1], based on Opauth OAuth.
+Twitter strategy for [Opauth][1], based on Opauth-OAuth.
 
 Getting started
 ----------------
-1. Install Opauth Twitter:
+1. Install Opauth-Twitter:
    ```bash
    cd path_to_opauth/Strategy
    git clone git://github.com/uzyn/opauth-twitter.git Twitter
@@ -20,7 +20,7 @@ Getting started
 - Register your domains at @Anywhere domains.  
    Twitter only allows authentication from authorized domains.
 
-- Take note of `Consumer key` and `Consumer secret` and enter them at the Opauth Twitter strategy configuration.
+- Take note of `Consumer key` and `Consumer secret` and enter them at the Opauth-Twitter strategy configuration.
 
 Strategy configuration
 ----------------------
@@ -37,7 +37,7 @@ Required parameters:
 
 See Twitter.php for optional parameters.
 
-Opauth Twitters does "[Sign In with Twitter](https://dev.twitter.com/docs/auth/implementing-sign-twitter)" by default.  
+Opauth-Twitter does "[Sign In with Twitter](https://dev.twitter.com/docs/auth/implementing-sign-twitter)" by default.  
 If you prefer to do a [3-legged OAuth](https://dev.twitter.com/docs/auth/3-legged-authorization), explicitly add `access_token_url` parameter to strategy configuration and set it to `https://api.twitter.com/oauth/authorize`.
 
 Dependencies
@@ -51,7 +51,7 @@ Reference
 
 License
 ---------
-Opauth Twitter is MIT Licensed
+Opauth-Twitter is MIT Licensed  
 Copyright © 2012 U-Zyn Chua (http://uzyn.com)
 
 tmhOAuth is [Apache 2 licensed](https://github.com/themattharris/tmhOAuth/blob/master/LICENSE).
