@@ -15,7 +15,7 @@ class Twitter extends OpauthStrategy{
 		
 		// For Twitter
 		'request_token_url' => 'https://api.twitter.com/oauth/request_token',
-		'access_token_url' => 'https://api.twitter.com/oauth/authorize', // or 'https://api.twitter.com/oauth/authenticate'
+		'access_token_url' => 'https://api.twitter.com/oauth/authenticate', // or 'https://api.twitter.com/oauth/authorize'
 
 		// From tmhOAuth
 		'user_token'					=> '',
