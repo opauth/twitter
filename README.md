@@ -4,24 +4,23 @@ Twitter strategy for [Opauth][1], based on Opauth OAuth.
 
 Getting started
 ----------------
-Install Opauth Twitter:
+1. Install Opauth Twitter:
+   ```bash
+   cd path_to_opauth/Strategy
+   git clone git://github.com/uzyn/opauth-twitter.git Twitter
+   ```
 
-```bash
-cd path_to_opauth/Strategy
-git clone git://github.com/uzyn/opauth-twitter.git Twitter
-```
+2. Create Twitter application at https://dev.twitter.com/apps
 
-Create Twitter application at https://dev.twitter.com/apps
+#### Notes when registering application on Twitter:
 
-Notes when registering application on Twitter:
-
- - Make sure to enter a Callback URL or callback will be disallowed.  
+- Make sure to enter a Callback URL or callback will be disallowed.  
    Callback URL can be a made up one as Opauth will explicitly provide the correct one as part of the OAuth process.
 
- - Register your domains at @Anywhere domains.  
+- Register your domains at @Anywhere domains.  
    Twitter only allows authentication from authorized domains.
 
- - Take note of `Consumer key` and `Consumer secret` and enter them at the Opauth Twitter strategy configuration.
+- Take note of `Consumer key` and `Consumer secret` and enter them at the Opauth Twitter strategy configuration.
 
 Strategy configuration
 ----------------------
