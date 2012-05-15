@@ -4,6 +4,13 @@ Twitter strategy for [Opauth][1], based on Opauth OAuth.
 
 Getting started
 ----------------
+Install Opauth Twitter
+
+```bash
+cd path_to_opauth/Strategy
+git clone git://github.com/uzyn/opauth-twitter.git Twitter
+```
+
 Create Twitter application at https://dev.twitter.com/apps
 
 Notes when registering application on Twitter:
