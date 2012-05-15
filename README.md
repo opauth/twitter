@@ -37,9 +37,8 @@ Required parameters:
 
 See Twitter.php for optional parameters.
 
-By default, Opauth Twitters performs "Sign In with Twitter" in accordance to https://dev.twitter.com/docs/auth/implementing-sign-twitter
-
-If, however, you prefer to do a [3-legged OAuth](https://dev.twitter.com/docs/auth/3-legged-authorization), explicitly set `access_token_url` to `https://api.twitter.com/oauth/authorize`.
+Opauth Twitters does "[Sign In with Twitter](https://dev.twitter.com/docs/auth/implementing-sign-twitter)" by default.  
+If you prefer to do a [3-legged OAuth](https://dev.twitter.com/docs/auth/3-legged-authorization), explicitly add `access_token_url` parameter to strategy configuration and set it to `https://api.twitter.com/oauth/authorize`.
 
 Dependencies
 ------------
