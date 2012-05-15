@@ -11,11 +11,12 @@ class Twitter extends OpauthStrategy{
  */
 	public $defaults = array(
 		'method' => 'POST', 		// The HTTP method being used. e.g. POST, GET, HEAD etc 
-		'oauth_callback' => '{complete_path}oauth/oauth_callback',
+		'oauth_callback' => '{complete_path}twitter/oauth_callback',
 		
 		// For Twitter
 		'request_token_url' => 'https://api.twitter.com/oauth/request_token',
-		'access_token_url' => 'https://api.twitter.com/oauth/authenticate', // or 'https://api.twitter.com/oauth/authorize'
+		'authenticate_url' => 'https://api.twitter.com/oauth/authenticate', // or 'https://api.twitter.com/oauth/authorize'
+		'access_token_url' => 'https://api.twitter.com/oauth/access_token', // or 'https://api.twitter.com/oauth/authorize'
 
 		// From tmhOAuth
 		'user_token'					=> '',
@@ -58,12 +59,12 @@ class Twitter extends OpauthStrategy{
 		$params = array(
 			'oauth_callback' => $this->strategy['oauth_callback']
 		);
-
+		
 		$results =  $this->_request('POST', $this->strategy['request_token_url'], $params);
 
 		if ($results !== false && !empty($results['oauth_token']) && !empty($results['oauth_token_secret'])){
 			session_start();
-			$_SESSION['_opauth_oauth'] = $results;
+			$_SESSION['_opauth_twitter'] = $results;
 
 			$this->_access_token($results['oauth_token']);
 		}
@@ -74,15 +75,26 @@ class Twitter extends OpauthStrategy{
  */
 	public function oauth_callback(){
 		session_start();
-		$this->auth = array(
-			'provider' => 'oauth',
-			'uid' => null,
-			'credentials' => array_merge($_SESSION['_opauth_oauth'], $_REQUEST)
-		);
+		$session = $_SESSION['_opauth_twitter'];
+		unset($_SESSION['_opauth_twitter']);
 
-		unset($_SESSION['_oauth_oauth']);
+		if ($_REQUEST['oauth_token'] == $session['oauth_token']){
+			$this->tmhOAuth->config['user_token'] = $session['oauth_token'];
+			$this->tmhOAuth->config['user_secret'] = $session['oauth_token_secret'];
+			
+			$params = array(
+				'oauth_verifier' => $_REQUEST['oauth_verifier']
+			);
+		
+			$results =  $this->_request('POST', $this->strategy['access_token_url'], $params);
 
-		$this->callback();
+			if ($results !== false && !empty($results['oauth_token']) && !empty($results['oauth_token_secret'])){
+				
+			}
+			print_r($results);
+		}
+		
+				
 	}
 
 	private function _access_token($oauth_token){
@@ -90,8 +102,22 @@ class Twitter extends OpauthStrategy{
 			'oauth_token' => $oauth_token
 		);
 
-		$this->redirect($this->strategy['access_token_url'].'?'.http_build_query($params));
+		$this->redirect($this->strategy['authenticate_url'].'?'.http_build_query($params));
 	}
+	
+	private function _verify_credentials($params = array()){
+		if (empty($params['user_token'])) return false;
+		if (empty($params['user_secret'])) return false;
+
+		$this->oAuth->config['user_token'] = $params['user_token'];
+		$this->oAuth->config['user_secret'] = $params['user_secret'];		
+		
+		return $this->_exec(array(
+			'method' => 'GET',
+			'url' => $this->oAuth->url('1/account/verify_credentials')
+		));
+	}
+	
 
 
 /**
