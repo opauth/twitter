@@ -52,4 +52,4 @@ Copyright © 2012 U-Zyn Chua (http://uzyn.com)
 
 tmhOAuth is [Apache 2 licensed](https://github.com/themattharris/tmhOAuth/blob/master/LICENSE).
 
-[1]: https://github.com/uzyn/opauth	"Opauth"
+[1]: https://github.com/uzyn/opauth
