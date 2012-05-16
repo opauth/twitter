@@ -69,7 +69,7 @@ class Twitter extends OpauthStrategy{
 			session_start();
 			$_SESSION['_opauth_twitter'] = $results;
 
-			$this->_access_token($results['oauth_token']);
+			$this->_authenticate($results['oauth_token']);
 		}
 	}
 
@@ -125,7 +125,7 @@ class Twitter extends OpauthStrategy{
 				
 	}
 
-	private function _access_token($oauth_token){
+	private function _authenticate($oauth_token){
 		$params = array(
 			'oauth_token' => $oauth_token
 		);
