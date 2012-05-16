@@ -15,7 +15,7 @@ class Twitter extends OpauthStrategy{
 		
 		// For Twitter
 		'request_token_url' => 'https://api.twitter.com/oauth/request_token',
-		'authenticate_url' => 'https://api.twitter.com/oauth/authenticate', // or 'https://api.twitter.com/oauth/authorize'
+		'authorize_url' => 'https://api.twitter.com/oauth/authenticate', // or 'https://api.twitter.com/oauth/authorize'
 		'access_token_url' => 'https://api.twitter.com/oauth/access_token',
 		'verify_credentials_json_url' => 'https://api.twitter.com/1/account/verify_credentials.json',
 		'verify_credentials_skip_status' => true,
@@ -69,7 +69,7 @@ class Twitter extends OpauthStrategy{
 			session_start();
 			$_SESSION['_opauth_twitter'] = $results;
 
-			$this->_authenticate($results['oauth_token']);
+			$this->_authorize($results['oauth_token']);
 		}
 	}
 
@@ -125,12 +125,12 @@ class Twitter extends OpauthStrategy{
 				
 	}
 
-	private function _authenticate($oauth_token){
+	private function _authorize($oauth_token){
 		$params = array(
 			'oauth_token' => $oauth_token
 		);
 
-		$this->redirect($this->strategy['authenticate_url'].'?'.http_build_query($params));
+		$this->redirect($this->strategy['authorize_url'].'?'.http_build_query($params));
 	}
 	
 	private function _verify_credentials($user_token, $user_token_secret){
