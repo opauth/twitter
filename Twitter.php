@@ -16,7 +16,10 @@ class Twitter extends OpauthStrategy{
 		// For Twitter
 		'request_token_url' => 'https://api.twitter.com/oauth/request_token',
 		'authenticate_url' => 'https://api.twitter.com/oauth/authenticate', // or 'https://api.twitter.com/oauth/authorize'
-		'access_token_url' => 'https://api.twitter.com/oauth/access_token', // or 'https://api.twitter.com/oauth/authorize'
+		'access_token_url' => 'https://api.twitter.com/oauth/access_token',
+		'verify_credentials_json_url' => 'https://api.twitter.com/1/account/verify_credentials.json',
+		'verify_credentials_skip_status' => true,
+		'twitter_profile_url' => 'http://twitter.com/{screen_name}',
 
 		// From tmhOAuth
 		'user_token'					=> '',
@@ -89,9 +92,34 @@ class Twitter extends OpauthStrategy{
 			$results =  $this->_request('POST', $this->strategy['access_token_url'], $params);
 
 			if ($results !== false && !empty($results['oauth_token']) && !empty($results['oauth_token_secret'])){
+				$credentials = $this->_verify_credentials($results['oauth_token'], $results['oauth_token_secret']);
 				
+				if (!empty($credentials['id'])){
+					
+					$this->auth = array(
+						'provider' => 'twitter',
+						'uid' => $credentials['id'],
+						'info' => array(
+							'name' => $credentials['name'],
+							'nickname' => $credentials['screen_name'],
+							'location' => $credentials['location'],
+							'description' => $credentials['description'],
+							'image' => $credentials['profile_image_url'],
+							'urls' => array(
+								'twitter' => str_replace('{screen_name}', $credentials['screen_name'], $this->strategy['twitter_profile_url']),
+								'website' => $credentials['url']
+							)
+						),
+						'credentials' => array(
+							'token' => $session['oauth_token'],
+							'secret' => $session['oauth_token_secret']
+						),
+						'raw' => $credentials
+					);
+					
+					$this->callback();
+				}
 			}
-			print_r($results);
 		}
 		
 				
@@ -105,17 +133,15 @@ class Twitter extends OpauthStrategy{
 		$this->redirect($this->strategy['authenticate_url'].'?'.http_build_query($params));
 	}
 	
-	private function _verify_credentials($params = array()){
-		if (empty($params['user_token'])) return false;
-		if (empty($params['user_secret'])) return false;
-
-		$this->oAuth->config['user_token'] = $params['user_token'];
-		$this->oAuth->config['user_secret'] = $params['user_secret'];		
+	private function _verify_credentials($user_token, $user_token_secret){
+		$this->tmhOAuth->config['user_token'] = $user_token;
+		$this->tmhOAuth->config['user_secret'] = $user_token_secret;
 		
-		return $this->_exec(array(
-			'method' => 'GET',
-			'url' => $this->oAuth->url('1/account/verify_credentials')
-		));
+		$params = array( 'skip_status' => $this->strategy['verify_credentials_skip_status'] );
+		
+		$response = $this->_request('GET', $this->strategy['verify_credentials_json_url'], $params);
+		
+		return $this->recursiveGetObjectVars($response);
 	}
 	
 
@@ -137,7 +163,11 @@ class Twitter extends OpauthStrategy{
 		$code = $this->tmhOAuth->request($method, $url, $params, $useauth, $multipart);
 
 		if ($code == 200){
-			$response = $this->tmhOAuth->extract_params($this->tmhOAuth->response['response']);
+			if (strpos($url, '.json') !== false)
+				$response = json_decode($this->tmhOAuth->response['response']);
+			else
+				$response = $this->tmhOAuth->extract_params($this->tmhOAuth->response['response']);
+			
 			return $response;		
 		}
 		else {
