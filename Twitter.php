@@ -109,7 +109,7 @@ class Twitter extends OpauthStrategy{
 				if (!empty($credentials['id'])){
 					
 					$this->auth = array(
-						'provider' => 'twitter',
+						'provider' => 'Twitter',
 						'uid' => $credentials['id'],
 						'info' => array(
 							'name' => $credentials['name'],
@@ -132,6 +132,16 @@ class Twitter extends OpauthStrategy{
 					$this->callback();
 				}
 			}
+		}
+		else{
+			$error = array(
+				'provider' => 'Twitter',
+				'code' => 'access_denied',
+				'message' => 'User denied access.',
+				'raw' => $_GET
+			);
+
+			$this->errorCallback($error);
 		}
 		
 				
@@ -183,10 +193,14 @@ class Twitter extends OpauthStrategy{
 			return $response;		
 		}
 		else {
-			// Log error
-			//$this->log($this->tmhOAuth->response['response']);
-			print_r($code);
-			print_r($this->tmhOAuth->response['response']);
+			$error = array(
+				'provider' => 'Twitter',
+				'code' => $code,
+				'raw' => $this->tmhOAuth->response['response']
+			);
+
+			$this->errorCallback($error);
+			
 			return false;
 		}
 
