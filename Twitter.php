@@ -1,14 +1,26 @@
 <?php
+/**
+ * Twitter strategy for Opauth
+ * Based on https://dev.twitter.com/docs/auth/obtaining-access-tokens
+ * 
+ * More information on Opauth: http://opauth.org
+ * 
+ * @copyright		Copyright © 2012 U-Zyn Chua (http://uzyn.com)
+ * @link 			http://opauth.org
+ * @package			Opauth.Twitter
+ * @license			MIT License
+ */
+
 class Twitter extends OpauthStrategy{
 	
-/**
- * Compulsory parameters
- */
+	/**
+	 * Compulsory parameters
+	 */
 	public $expects = array('key', 'secret');
 	
-/**
- * Optional parameters
- */
+	/**
+	 * Optional parameters
+	 */
 	public $defaults = array(
 		'method' => 'POST', 		// The HTTP method being used. e.g. POST, GET, HEAD etc 
 		'oauth_callback' => '{complete_path}twitter/oauth_callback',
@@ -55,9 +67,9 @@ class Twitter extends OpauthStrategy{
 		$this->tmhOAuth = new tmhOAuth($this->strategy);
 	}
 	
-/**
- * Auth request
- */
+	/**
+	 * Auth request
+	 */
 	public function request(){
 		$params = array(
 			'oauth_callback' => $this->strategy['oauth_callback']
@@ -73,9 +85,9 @@ class Twitter extends OpauthStrategy{
 		}
 	}
 
-/**
- * Receives oauth_verifier, requests for access_token and redirect to callback
- */
+	/**
+	 * Receives oauth_verifier, requests for access_token and redirect to callback
+	 */
 	public function oauth_callback(){
 		session_start();
 		$session = $_SESSION['_opauth_twitter'];
@@ -146,19 +158,19 @@ class Twitter extends OpauthStrategy{
 	
 
 
-/**
- * Wrapper of tmhOAuth's request() with Opauth's error handling.
- * 
- * request():
- * Make an HTTP request using this library. This method doesn't return anything.
- * Instead the response should be inspected directly.
- *
- * @param string $method the HTTP method being used. e.g. POST, GET, HEAD etc
- * @param string $url the request URL without query string parameters
- * @param array $params the request parameters as an array of key=value pairs
- * @param string $useauth whether to use authentication when making the request. Default true.
- * @param string $multipart whether this request contains multipart data. Default false
- */	
+	/**
+	 * Wrapper of tmhOAuth's request() with Opauth's error handling.
+	 * 
+	 * request():
+	 * Make an HTTP request using this library. This method doesn't return anything.
+	 * Instead the response should be inspected directly.
+	 *
+	 * @param string $method the HTTP method being used. e.g. POST, GET, HEAD etc
+	 * @param string $url the request URL without query string parameters
+	 * @param array $params the request parameters as an array of key=value pairs
+	 * @param string $useauth whether to use authentication when making the request. Default true.
+	 * @param string $multipart whether this request contains multipart data. Default false
+	 */	
 	private function _request($method, $url, $params = array(), $useauth = true, $multipart = false){
 		$code = $this->tmhOAuth->request($method, $url, $params, $useauth, $multipart);
 
