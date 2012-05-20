@@ -11,16 +11,15 @@ Getting started
    ```
 
 2. Create Twitter application at https://dev.twitter.com/apps
+   - Make sure to enter a Callback URL or callback will be disallowed.  
+      Callback URL can be a made up one as Opauth will explicitly provide the correct one as part of the OAuth process.   
+   - Register your domains at @Anywhere domains.  
+	   Twitter only allows authentication from authorized domains.
+	
+3. Configure Opauth-Facebook strategy with at least `Consumer key` and `Consumer secret`.
 
-#### Notes when registering application on Twitter:
+4. Direct user to `http://path_to_opauth/twitter` to authenticate
 
-- Make sure to enter a Callback URL or callback will be disallowed.  
-   Callback URL can be a made up one as Opauth will explicitly provide the correct one as part of the OAuth process.
-
-- Register your domains at @Anywhere domains.  
-   Twitter only allows authentication from authorized domains.
-
-- Take note of `Consumer key` and `Consumer secret` and enter them at the Opauth-Twitter strategy configuration.
 
 Strategy configuration
 ----------------------
