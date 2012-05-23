@@ -11,7 +11,7 @@
  * @license			MIT License
  */
 
-class Twitter extends OpauthStrategy{
+class TwitterStrategy extends OpauthStrategy{
 	
 	/**
 	 * Compulsory parameters
