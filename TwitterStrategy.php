@@ -150,7 +150,7 @@ class TwitterStrategy extends OpauthStrategy{
 			'oauth_token' => $oauth_token
 		);
 
-		$this->redirect($this->strategy['authorize_url'].'?'.http_build_query($params));
+		$this->clientGet($this->strategy['authorize_url'], $params);
 	}
 	
 	private function _verify_credentials($user_token, $user_token_secret){
