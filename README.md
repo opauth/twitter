@@ -16,7 +16,7 @@ Getting started
    - Register your domains at @Anywhere domains.  
 	   Twitter only allows authentication from authorized domains.
 	
-3. Configure Opauth-Facebook strategy with at least `Consumer key` and `Consumer secret`.
+3. Configure Opauth-Twitter strategy with at least `Consumer key` and `Consumer secret`.
 
 4. Direct user to `http://path_to_opauth/twitter` to authenticate
 
