@@ -11,12 +11,12 @@ Getting started
    ```
 
 2. Create Twitter application at https://dev.twitter.com/apps
-   - Make sure to enter a Callback URL or callback will be disallowed.  
-      Callback URL can be a made up one as Opauth will explicitly provide the correct one as part of the OAuth process.   
-   - Register your domains at @Anywhere domains.  
+   - Make sure to enter a Callback URL or callback will be disallowed.
+      Callback URL can be a made up one as Opauth will explicitly provide the correct one as part of the OAuth process.
+   - Register your domains at @Anywhere domains.
 	   Twitter only allows authentication from authorized domains.
-	
-3. Configure Opauth-Facebook strategy with at least `Consumer key` and `Consumer secret`.
+
+3. Configure Opauth-Twitter strategy with at least `Consumer key` and `Consumer secret`.
 
 4. Direct user to `http://path_to_opauth/twitter` to authenticate
 
@@ -36,12 +36,12 @@ Required parameters:
 
 See Twitter.php for optional parameters.
 
-Opauth-Twitter does "[Sign In with Twitter](https://dev.twitter.com/docs/auth/implementing-sign-twitter)" by default.  
+Opauth-Twitter does "[Sign In with Twitter](https://dev.twitter.com/docs/auth/implementing-sign-twitter)" by default.
 If you prefer to do a [3-legged OAuth](https://dev.twitter.com/docs/auth/3-legged-authorization), explicitly add `authenticate_url` parameter to strategy configuration and set it to `https://api.twitter.com/oauth/authorize`.
 
 Dependencies
 ------------
-tmhOAuth requires hash_hmac and cURL.  
+tmhOAuth requires hash_hmac and cURL.
 hash_hmac is available on PHP 5 >= 5.1.2.
 
 Reference
@@ -50,7 +50,7 @@ Reference
 
 License
 ---------
-Opauth-Twitter is MIT Licensed  
+Opauth-Twitter is MIT Licensed
 Copyright © 2012 U-Zyn Chua (http://uzyn.com)
 
 tmhOAuth is [Apache 2 licensed](https://github.com/themattharris/tmhOAuth/blob/master/LICENSE).
