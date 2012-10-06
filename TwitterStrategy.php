@@ -108,20 +108,15 @@ class TwitterStrategy extends OpauthStrategy {
 			if ($results !== false && !empty($results['oauth_token']) && !empty($results['oauth_token_secret'])) {
 				$credentials = $this->_verify_credentials($results['oauth_token'], $results['oauth_token_secret']);
 				
-				if (!empty($credentials['id'])){
+				if (!empty($credentials['id'])) {
 					
 					$this->auth = array(
-						'provider' => 'Twitter',
 						'uid' => $credentials['id'],
 						'info' => array(
 							'name' => $credentials['name'],
 							'nickname' => $credentials['screen_name'],
-							'location' => $credentials['location'],
-							'description' => $credentials['description'],
-							'image' => $credentials['profile_image_url'],
 							'urls' => array(
-								'twitter' => str_replace('{screen_name}', $credentials['screen_name'], $this->strategy['twitter_profile_url']),
-								'website' => $credentials['url']
+								'twitter' => str_replace('{screen_name}', $credentials['screen_name'], $this->strategy['twitter_profile_url'])
 							)
 						),
 						'credentials' => array(
@@ -131,12 +126,16 @@ class TwitterStrategy extends OpauthStrategy {
 						'raw' => $credentials
 					);
 					
+					$this->mapProfile($credentials, 'location', 'info.location');
+					$this->mapProfile($credentials, 'description', 'info.description');
+					$this->mapProfile($credentials, 'profile_image_url', 'info.image');
+					$this->mapProfile($credentials, 'url', 'info.urls.website');
+					
 					$this->callback();
 				}
 			}
 		} else {
 			$error = array(
-				'provider' => 'Twitter',
 				'code' => 'access_denied',
 				'message' => 'User denied access.',
 				'raw' => $_GET
@@ -195,7 +194,6 @@ class TwitterStrategy extends OpauthStrategy {
 			return $response;		
 		} else {
 			$error = array(
-				'provider' => 'Twitter',
 				'code' => $code,
 				'raw' => $this->tmhOAuth->response['response']
 			);
