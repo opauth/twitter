@@ -152,6 +152,9 @@ class TwitterStrategy extends OpauthStrategy {
 			'oauth_token' => $oauth_token
 		);
 
+		if (!empty($this->strategy['force_login'])) $params['force_login'] = $this->strategy['force_login'];
+		if (!empty($this->strategy['screen_name'])) $params['screen_name'] = $this->strategy['screen_name'];
+
 		$this->clientGet($this->strategy['authorize_url'], $params);
 	}
 	
