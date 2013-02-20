@@ -17,7 +17,8 @@
 	],
 	"require": {
 		"php": ">=5.3.0",
-		"opauth/opauth": "dev-wip/1.0"
+		"opauth/opauth": "dev-wip/1.0",
+		"themattharris/tmhoauth": "0.7.*",
 	},
 	"autoload": {
 		"psr-0": { "Opauth\\Strategy\\Twitter": "" }
