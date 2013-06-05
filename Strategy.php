@@ -69,8 +69,8 @@ class Strategy extends AbstractStrategy {
 		'info.urls.website' => 'url'
 	);
 
-	public function __construct(Request $Request, $config = array()) {
-		parent::__construct($Request, $config);
+	public function __construct($config = array()) {
+		parent::__construct($config);
 
 		$this->strategy['consumer_key'] = $this->strategy['key'];
 		$this->strategy['consumer_secret'] = $this->strategy['secret'];
