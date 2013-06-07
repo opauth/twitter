@@ -84,10 +84,10 @@ class Strategy extends AbstractStrategy {
 		$params = array(
 			'oauth_callback' => $this->callbackUrl()
 		);
-		$results =  $this->_request('POST', $this->strategy['request_token_url'], $params);
+		$results = $this->_request('POST', $this->strategy['request_token_url'], $params);
 
 		if ($results === false || empty($results['oauth_token']) || empty($results['oauth_token_secret'])) {
-			return $this->requestError($results);
+			return $this->requestError();
 		}
 		$this->sessionData($results);
 
@@ -100,16 +100,16 @@ class Strategy extends AbstractStrategy {
 	public function callback() {
 		$results = $this->verifier();
 		if ($results === false || empty($results['oauth_token']) || empty($results['oauth_token_secret'])) {
-			return $this->verifierError($results);
+			return $this->verifierError();
 		}
 
 		$credentials = $this->_verify_credentials($results['oauth_token'], $results['oauth_token_secret']);
 
-		if (empty($credentials['id'])) {
-			return $this->credentialsError($credentials);
+		if ($credentials === false || empty($credentials['id'])) {
+			return $this->credentialsError();
 		}
 
-		$response = new Response($this->strategy['provider'], $credentials);
+		$response = $this->response($credentials);
 		$response->credentials = array(
 			'token' => $results['oauth_token'],
 			'secret' => $results['oauth_token_secret']
@@ -149,6 +149,9 @@ class Strategy extends AbstractStrategy {
 		$params = $this->addParams(array('verify_credentials_skip_status' => 'skip_status'));
 
 		$response = $this->_request('GET', $this->strategy['verify_credentials_json_url'], $params);
+		if ($response === false) {
+			return false;
+		}
 
 		return $this->recursiveGetObjectVars($response);
 	}
@@ -172,12 +175,7 @@ class Strategy extends AbstractStrategy {
 		$code = $this->tmhOAuth->request($method, $url, $params, $useauth, $multipart);
 
 		if ($code !== 200) {
-			$error = array(
-				'code' => $code,
-				'raw' => $this->tmhOAuth->response['response']
-			);
-
-			return $this->errorCallback($error);
+			return false;
 		}
 
 		if (strpos($url, '.json') !== false) {
@@ -186,40 +184,36 @@ class Strategy extends AbstractStrategy {
 		return $this->tmhOAuth->extract_params($this->tmhOAuth->response['response']);
 	}
 
-	protected function requestError($raw) {
+	protected function requestError() {
 		$error = array(
 			'code' => 'token_request_failed',
 			'message' => 'Could not obtain token from request_token_url',
-			'raw' => $raw
 		);
-		return $this->errorCallback($error);
+		return $this->response($this->tmhOAuth->response['response'], $error);
 	}
 
 	protected function deniedError() {
 		$error = array(
 			'code' => 'access_denied',
 			'message' => 'User denied access.',
-			'raw' => $_GET
 		);
-		return $this->errorCallback($error);
+		return $this->response($_GET, $error);
 	}
 
-	protected function veryfierError($raw) {
+	protected function verifierError() {
 		$error = array(
 			'code' => 'oauth_verifier',
 			'message' => 'Oauth_verifier error.',
-			'raw' => $raw
 		);
-		return $this->errorCallback($error);
+		return $this->response($this->tmhOAuth->response['response'], $error);
 	}
 
-	protected function credentialsError($raw) {
+	protected function credentialsError() {
 		$error = array(
 			'code' => 'verify_credentials',
 			'message' => 'Verify_credentials error.',
-			'raw' => $raw
 		);
-		return $this->errorCallback($error);
+		return $this->response($this->tmhOAuth->response['response'], $error);
 	}
 
 }
