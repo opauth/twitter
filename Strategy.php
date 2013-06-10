@@ -13,9 +13,6 @@
 namespace Opauth\Strategy\Twitter;
 
 use Opauth\AbstractStrategy;
-use Opauth\HttpClient;
-use Opauth\Request;
-use Opauth\Response;
 
 class Strategy extends AbstractStrategy {
 
@@ -139,7 +136,7 @@ class Strategy extends AbstractStrategy {
 			'oauth_token' => $oauth_token
 		);
 		$params = $this->addParams(array('force_login', 'screen_name'), $params);
-		HttpClient::redirect($this->strategy['authorize_url'], $params);
+		$this->http->redirect($this->strategy['authorize_url'], $params);
 	}
 
 	protected function _verify_credentials($user_token, $user_token_secret) {
