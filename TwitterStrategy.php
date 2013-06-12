@@ -29,7 +29,7 @@ class TwitterStrategy extends OpauthStrategy {
 		'request_token_url' => 'https://api.twitter.com/oauth/request_token',
 		'authorize_url' => 'https://api.twitter.com/oauth/authenticate', // or 'https://api.twitter.com/oauth/authorize'
 		'access_token_url' => 'https://api.twitter.com/oauth/access_token',
-		'verify_credentials_json_url' => 'https://api.twitter.com/1/account/verify_credentials.json',
+		'verify_credentials_json_url' => 'https://api.twitter.com/1.1/account/verify_credentials.json',
 		'verify_credentials_skip_status' => true,
 		'twitter_profile_url' => 'http://twitter.com/{screen_name}',
 
