@@ -21,7 +21,6 @@
 		"themattharris/tmhoauth": "0.7.*"
 	},
 	"autoload": {
-		"psr-0": { "Opauth\\Strategy\\Twitter": "" }
-	},
-	"target-dir": "Opauth/Strategy/Twitter"
+		"psr-4": { "Opauth\\Twitter\\Strategy\\": "src" }
+	}
 }

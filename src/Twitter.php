@@ -10,11 +10,11 @@
  * @package      Opauth.TwitterStrategy
  * @license      MIT License
  */
-namespace Opauth\Strategy\Twitter;
+namespace Opauth\Twitter\Strategy;
 
-use Opauth\AbstractStrategy;
+use Opauth\Opauth\AbstractStrategy;
 
-class Strategy extends AbstractStrategy {
+class Twitter extends AbstractStrategy {
 
 	/**
 	 * Compulsory parameters
