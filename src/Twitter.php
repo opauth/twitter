@@ -66,7 +66,7 @@ class Twitter extends AbstractStrategy
         'info.urls.website' => 'url'
     );
 
-    public function __construct($config = array(), $callbackUrl, $transport)
+    public function __construct($config, $callbackUrl, $transport)
     {
         parent::__construct($config, $callbackUrl, $transport);
 
