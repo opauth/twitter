@@ -1,26 +1,28 @@
 {
-	"name": "opauth/twitter",
-	"description": "Twitter strategy for Opauth",
-	"keywords": ["authentication","auth","twitter"],
-	"homepage": "http://opauth.org",
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "U-Zyn Chua",
-			"email": "chua@uzyn.com",
-			"homepage": "http://uzyn.com"
-		},
-		{
-			"name": "Ceeram",
-			"email": "c33ram@gmail.com"
-		}
-	],
-	"require": {
-		"php": ">=5.3.0",
-		"opauth/opauth": "dev-wip/1.0",
-		"themattharris/tmhoauth": "0.7.*"
-	},
-	"autoload": {
-		"psr-4": { "Opauth\\Twitter\\Strategy\\": "src" }
-	}
+    "name": "opauth/twitter",
+    "description": "Twitter strategy for Opauth",
+    "keywords": ["authentication", "auth", "twitter"],
+    "homepage": "http://opauth.org",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "U-Zyn Chua",
+            "email": "chua@uzyn.com",
+            "homepage": "http://uzyn.com"
+        },
+        {
+            "name": "Ceeram",
+            "email": "c33ram@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "opauth/opauth": "dev-wip/1.0",
+        "themattharris/tmhoauth": "0.7.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Opauth\\Twitter\\Strategy\\": "src"
+        }
+    }
 }
