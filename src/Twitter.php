@@ -189,38 +189,22 @@ class Twitter extends AbstractStrategy
 
     protected function requestError()
     {
-        $error = array(
-            'code' => 'token_request_failed',
-            'message' => 'Could not obtain token from request_token_url',
-        );
-        return $this->response($this->tmhOAuth->response['response'], $error);
+        return $this->error('Could not obtain token from request_token_url.', 'token_request_failed', $this->tmhOAuth->response);
     }
 
     protected function deniedError()
     {
-        $error = array(
-            'code' => 'access_denied',
-            'message' => 'User denied access.',
-        );
-        return $this->response($_GET, $error);
+        return $this->error('User denied access.', 'access_denied', $_GET);
     }
 
     protected function verifierError()
     {
-        $error = array(
-            'code' => 'oauth_verifier',
-            'message' => 'Oauth_verifier error.',
-        );
-        return $this->response($this->tmhOAuth->response['response'], $error);
+        return $this->error('OAuth verifier error.', 'oauth_verifier_error', $this->tmhOAuth->response);
     }
 
     protected function credentialsError()
     {
-        $error = array(
-            'code' => 'verify_credentials',
-            'message' => 'Verify_credentials error.',
-        );
-        return $this->response($this->tmhOAuth->response['response'], $error);
+        return $this->error('Failed when verifying credentials.', 'verify_credentials_error', $this->tmhOAuth->response);
     }
 
 }
