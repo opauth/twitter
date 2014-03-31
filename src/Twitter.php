@@ -13,6 +13,7 @@
 namespace Opauth\Twitter\Strategy;
 
 use Opauth\Opauth\AbstractStrategy;
+use Opauth\Opauth\TransportInterface;
 
 class Twitter extends AbstractStrategy
 {
@@ -66,7 +67,7 @@ class Twitter extends AbstractStrategy
         'info.urls.website' => 'url'
     );
 
-    public function __construct($config, $callbackUrl, $transport)
+    public function __construct($config, $callbackUrl, TransportInterface $transport)
     {
         parent::__construct($config, $callbackUrl, $transport);
 
