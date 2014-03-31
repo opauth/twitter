@@ -84,14 +84,14 @@ class Twitter extends AbstractStrategy
         $params = array(
             'oauth_callback' => $this->callbackUrl()
         );
-        $results = $this->_request('POST', $this->strategy['request_token_url'], $params);
+        $results = $this->tmhRequest('POST', $this->strategy['request_token_url'], $params);
 
         if ($results === false || empty($results['oauth_token']) || empty($results['oauth_token_secret'])) {
             return $this->requestError();
         }
         $this->sessionData($results);
 
-        $this->_authorize($results['oauth_token']);
+        $this->authorize($results['oauth_token']);
     }
 
     /**
@@ -104,7 +104,7 @@ class Twitter extends AbstractStrategy
             return $this->verifierError();
         }
 
-        $credentials = $this->_verify_credentials($results['oauth_token'], $results['oauth_token_secret']);
+        $credentials = $this->verifyCredentials($results['oauth_token'], $results['oauth_token_secret']);
 
         if ($credentials === false || empty($credentials['id'])) {
             return $this->credentialsError();
@@ -133,10 +133,10 @@ class Twitter extends AbstractStrategy
             'oauth_verifier' => $_REQUEST['oauth_verifier']
         );
 
-        return $this->_request('POST', $this->strategy['access_token_url'], $params);
+        return $this->tmhRequest('POST', $this->strategy['access_token_url'], $params);
     }
 
-    protected function _authorize($oauth_token)
+    protected function authorize($oauth_token)
     {
         $params = array(
             'oauth_token' => $oauth_token
@@ -145,14 +145,14 @@ class Twitter extends AbstractStrategy
         $this->http->redirect($this->strategy['authorize_url'], $params);
     }
 
-    protected function _verify_credentials($user_token, $user_token_secret)
+    protected function verifyCredentials($user_token, $user_token_secret)
     {
         $this->tmhOAuth->config['user_token'] = $user_token;
         $this->tmhOAuth->config['user_secret'] = $user_token_secret;
 
         $params = $this->addParams(array('verify_credentials_skip_status' => 'skip_status'));
 
-        $response = $this->_request('GET', $this->strategy['verify_credentials_json_url'], $params);
+        $response = $this->tmhRequest('GET', $this->strategy['verify_credentials_json_url'], $params);
         if ($response === false) {
             return false;
         }
@@ -174,7 +174,7 @@ class Twitter extends AbstractStrategy
      * @param string $useauth whether to use authentication when making the request. Default true.
      * @param string $multipart whether this request contains multipart data. Default false
      */
-    protected function _request($method, $url, $params = array(), $useauth = true, $multipart = false)
+    protected function tmhRequest($method, $url, $params = array(), $useauth = true, $multipart = false)
     {
         $code = $this->tmhOAuth->request($method, $url, $params, $useauth, $multipart);
 
@@ -190,22 +190,37 @@ class Twitter extends AbstractStrategy
 
     protected function requestError()
     {
-        return $this->error('Could not obtain token from request_token_url.', 'token_request_failed', $this->tmhOAuth->response);
+        return $this->error(
+            'Could not obtain token from request_token_url.',
+            'token_request_failed',
+            $this->tmhOAuth->response
+        );
     }
 
     protected function deniedError()
     {
-        return $this->error('User denied access.', 'access_denied', $_GET);
+        return $this->error(
+            'User denied access.',
+            'access_denied',
+            $_GET
+        );
     }
 
     protected function verifierError()
     {
-        return $this->error('OAuth verifier error.', 'oauth_verifier_error', $this->tmhOAuth->response);
+        return $this->error(
+            'OAuth verifier error.',
+            'oauth_verifier_error',
+            $this->tmhOAuth->response
+        );
     }
 
     protected function credentialsError()
     {
-        return $this->error('Failed when verifying credentials.', 'verify_credentials_error', $this->tmhOAuth->response);
+        return $this->error(
+            'Failed when verifying credentials.',
+            'verify_credentials_error',
+            $this->tmhOAuth->response
+        );
     }
-
 }
