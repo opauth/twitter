@@ -13,7 +13,7 @@
 namespace Opauth\Twitter\Strategy;
 
 use Opauth\Opauth\AbstractStrategy;
-use Opauth\Opauth\TransportInterface;
+use Opauth\Opauth\HttpClientInterface;
 
 class Twitter extends AbstractStrategy
 {
@@ -67,9 +67,9 @@ class Twitter extends AbstractStrategy
         'info.urls.website' => 'url'
     );
 
-    public function __construct($config, $callbackUrl, TransportInterface $transport)
+    public function __construct($config, $callbackUrl, HttpClientInterface $client)
     {
-        parent::__construct($config, $callbackUrl, $transport);
+        parent::__construct($config, $callbackUrl, $client);
 
         $this->strategy['consumer_key'] = $this->strategy['key'];
         $this->strategy['consumer_secret'] = $this->strategy['secret'];
