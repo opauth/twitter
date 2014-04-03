@@ -142,7 +142,7 @@ class Twitter extends AbstractStrategy
             'oauth_token' => $oauth_token
         );
         $params = $this->addParams(array('force_login', 'screen_name'), $params);
-        $this->http->redirect($this->strategy['authorize_url'], $params);
+        $this->redirect($this->strategy['authorize_url'], $params);
     }
 
     protected function verifyCredentials($user_token, $user_token_secret)
