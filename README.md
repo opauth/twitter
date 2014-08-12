@@ -7,7 +7,7 @@ Getting started
 1. Install Opauth-Twitter:
    ```bash
    cd path_to_opauth/Strategy
-   git clone git://github.com/uzyn/opauth-twitter.git Twitter
+   git clone git@github.com:opauth/twitter.git Twitter
    ```
 
 2. Create Twitter application at https://dev.twitter.com/apps
