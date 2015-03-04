@@ -92,10 +92,16 @@ class TwitterStrategy extends OpauthStrategy {
 		if (!session_id()) {
 			session_start();
 		}
-		$session = $_SESSION['_opauth_twitter'];
-		unset($_SESSION['_opauth_twitter']);
+		
+		$session = null;
+		if (array_key_exists('_opauth_twitter', $_SESSION)) {
+			$session = $_SESSION['_opauth_twitter'];
+			unset($_SESSION['_opauth_twitter']);
+		}
 
-		if (!empty($_REQUEST['oauth_token']) && $_REQUEST['oauth_token'] == $session['oauth_token']) {
+		if (is_array($session) &&
+			!empty($_REQUEST['oauth_token']) && 
+			$_REQUEST['oauth_token'] == $session['oauth_token']) {
 			$this->tmhOAuth->config['user_token'] = $session['oauth_token'];
 			$this->tmhOAuth->config['user_secret'] = $session['oauth_token_secret'];
 			

@@ -1,7 +1,7 @@
 {
-	"name": "opauth/twitter",
+	"name": "xylesoft/twitter",
 	"description": "Twitter strategy for Opauth",
-	"keywords": ["authentication","auth","twitter"],
+	"keywords": ["authentication","auth","twitter","forked"],
 	"homepage": "http://opauth.org",
 	"license": "MIT",
 	"authors": [
@@ -9,6 +9,10 @@
 			"name": "U-Zyn Chua",
 			"email": "chua@uzyn.com",
 			"homepage": "http://uzyn.com"
+		},
+		{
+			"name": "Jeramy Wenserit",
+			"email": "jeramy@xylesoft.co.uk",
 		}
 	],
 	"require": {
