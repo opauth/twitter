@@ -61,7 +61,7 @@ class TwitterStrategy extends OpauthStrategy
         $this->strategy['consumer_key'] = $this->strategy['key'];
         $this->strategy['consumer_secret'] = $this->strategy['secret'];
 
-        require dirname(__FILE__) . '/Vendor/tmhOAuth/tmhOAuth.php';
+        require dirname(__FILE__) . '/Vendor/themattharris/tmhOAuth/tmhOAuth.php';
         $this->tmhOAuth = new tmhOAuth($this->strategy);
     }
 
