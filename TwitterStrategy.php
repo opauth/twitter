@@ -45,7 +45,7 @@ class TwitterStrategy extends OpauthStrategy {
 		'oauth_version'					=> '1.0',
 		'curl_connecttimeout'			=> 30,
 		'curl_timeout'					=> 10,
-		'curl_ssl_verifypeer'			=> false,
+		'curl_ssl_verifypeer'			=> true,
 		'curl_followlocation'			=> false, // whether to follow redirects or not
 		'curl_proxy'					=> false, // really you don't want to use this if you are using streaming
 		'curl_proxyuserpwd'				=> false, // format username:password for proxy, if required
