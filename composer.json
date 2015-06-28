@@ -1,24 +1,23 @@
 {
-	"name": "nashjain/opauth-twitter",
-	"description": "Twitter strategy for Opauth",
-	"keywords": ["authentication","auth","twitter"],
-	"homepage": "http://opauth.org",
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Naresh Jain",
-			"email": "nashjain@gmail.com",
-			"homepage": "http://nareshjain.com"
-		}
-	],
-	"require": {
-		"php": ">=5.4.0",
-		"opauth/opauth": ">=0.2.0",
-		"themattharris/tmhoauth": ">=0.8.0"
-	},
-	"autoload": {
-		"psr-0": {
-			"": "."
-		}
-	}
+    "name": "opauth/twitter",
+    "description": "Twitter strategy for Opauth",
+    "keywords": ["authentication","auth","twitter"],
+    "homepage": "http://opauth.org",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "U-Zyn Chua",
+            "email": "chua@uzyn.com",
+            "homepage": "http://uzyn.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.2.0",
+        "opauth/opauth": ">=0.2.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "": "."
+        }
+    }
 }
