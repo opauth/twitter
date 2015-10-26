@@ -30,7 +30,8 @@ class TwitterStrategy extends OpauthStrategy {
 		'authorize_url' => 'https://api.twitter.com/oauth/authenticate', // or 'https://api.twitter.com/oauth/authorize'
 		'access_token_url' => 'https://api.twitter.com/oauth/access_token',
 		'verify_credentials_json_url' => 'https://api.twitter.com/1.1/account/verify_credentials.json',
-		'verify_credentials_skip_status' => true,
+		'verify_credentials_skip_status' => 'true',
+                'verify_credentials_include_email' => 'false',
 		'twitter_profile_url' => 'http://twitter.com/{screen_name}',
 
 		// From tmhOAuth
@@ -162,7 +163,7 @@ class TwitterStrategy extends OpauthStrategy {
 		$this->tmhOAuth->config['user_token'] = $user_token;
 		$this->tmhOAuth->config['user_secret'] = $user_token_secret;
 		
-		$params = array( 'skip_status' => $this->strategy['verify_credentials_skip_status'] );
+		$params = ['skip_status' => $this->strategy['verify_credentials_skip_status'], 'include_email'=>$this->strategy['verify_credentials_include_email']];
 		
 		$response = $this->_request('GET', $this->strategy['verify_credentials_json_url'], $params);
 		
