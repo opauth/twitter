@@ -130,6 +130,7 @@ class TwitterStrategy extends OpauthStrategy {
 					$this->mapProfile($credentials, 'description', 'info.description');
 					$this->mapProfile($credentials, 'profile_image_url', 'info.image');
 					$this->mapProfile($credentials, 'url', 'info.urls.website');
+					$this->mapProfile($credentials, 'email', 'info.email');
 					
 					$this->callback();
 				}
@@ -162,7 +163,7 @@ class TwitterStrategy extends OpauthStrategy {
 		$this->tmhOAuth->config['user_token'] = $user_token;
 		$this->tmhOAuth->config['user_secret'] = $user_token_secret;
 		
-		$params = array( 'skip_status' => $this->strategy['verify_credentials_skip_status'] );
+		$params = array( 'skip_status' => $this->strategy['verify_credentials_skip_status'], 'include_email' => 'true' );
 		
 		$response = $this->_request('GET', $this->strategy['verify_credentials_json_url'], $params);
 		
