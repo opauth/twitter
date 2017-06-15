@@ -128,7 +128,7 @@ class TwitterStrategy extends OpauthStrategy {
 					
 					$this->mapProfile($credentials, 'location', 'info.location');
 					$this->mapProfile($credentials, 'description', 'info.description');
-					$this->mapProfile($credentials, 'profile_image_url', 'info.image');
+					$this->mapProfile($credentials, 'profile_image_url_https', 'info.image');
 					$this->mapProfile($credentials, 'url', 'info.urls.website');
 					$this->mapProfile($credentials, 'email', 'info.email');
 					
