@@ -9,6 +9,10 @@ Getting started
    cd path_to_opauth/Strategy
    git clone git@github.com:opauth/twitter.git Twitter
    ```
+   or
+   ```bash
+   composer require opauth/twitter
+   ```
 
 2. Create Twitter application at https://dev.twitter.com/apps
    - Make sure to enter a Callback URL or callback will be disallowed.  
