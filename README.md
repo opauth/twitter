@@ -50,7 +50,7 @@ hash_hmac is available on PHP 5 >= 5.1.2.
 
 Reference
 ---------
- - [Twitter Authentication & Authorization](https://dev.twitter.com/docs/auth)
+ - [Twitter Authentication & Authorization](https://developer.twitter.com/en/docs/basics/authentication/overview/oauth)
 
 License
 ---------
