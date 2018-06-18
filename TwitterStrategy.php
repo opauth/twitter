@@ -45,7 +45,7 @@ class TwitterStrategy extends OpauthStrategy {
 		'oauth_version'					=> '1.0',
 		'curl_connecttimeout'			=> 30,
 		'curl_timeout'					=> 10,
-		'curl_ssl_verifypeer'			=> false,
+		'curl_ssl_verifypeer'			=> true,
 		'curl_followlocation'			=> false, // whether to follow redirects or not
 		'curl_proxy'					=> false, // really you don't want to use this if you are using streaming
 		'curl_proxyuserpwd'				=> false, // format username:password for proxy, if required
@@ -169,22 +169,19 @@ class TwitterStrategy extends OpauthStrategy {
 		
 		return $this->recursiveGetObjectVars($response);
 	}
-	
 
-
-	/**
-	 * Wrapper of tmhOAuth's request() with Opauth's error handling.
-	 * 
-	 * request():
-	 * Make an HTTP request using this library. This method doesn't return anything.
-	 * Instead the response should be inspected directly.
-	 *
-	 * @param string $method the HTTP method being used. e.g. POST, GET, HEAD etc
-	 * @param string $url the request URL without query string parameters
-	 * @param array $params the request parameters as an array of key=value pairs
-	 * @param string $useauth whether to use authentication when making the request. Default true.
-	 * @param string $multipart whether this request contains multipart data. Default false
-	 */	
+    /**
+     * Wrapper of tmhOAuth's request() with Opauth's error handling.
+     * request():
+     * Make an HTTP request using this library. This method doesn't return anything.
+     * Instead the response should be inspected directly.
+     * @param string $method the HTTP method being used. e.g. POST, GET, HEAD etc
+     * @param string $url the request URL without query string parameters
+     * @param array $params the request parameters as an array of key=value pairs
+     * @param bool $useauth whether to use authentication when making the request. Default true.
+     * @param bool $multipart whether this request contains multipart data. Default false
+     * @return mixed
+     */
 	private function _request($method, $url, $params = array(), $useauth = true, $multipart = false) {
 		$code = $this->tmhOAuth->request($method, $url, $params, $useauth, $multipart);
 
